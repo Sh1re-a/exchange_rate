@@ -92,7 +92,17 @@ export default function Home() {
         >
           Convert 
         </button>
-        <h1>{JSON.stringify(data)}</h1>
+        {data && (
+          <div className="mt-5">
+            <h1>From:{userInput.from}</h1>
+            <h1>To: {userInput.to}</h1>
+            <h1>Amount: {data.amount} {userInput.from}</h1>
+            <h1>Rate: {data.rate} {userInput.to}</h1>
+            <h1>Result: {data.result} {userInput.to}</h1>
+          </div>
+        )}
+        
+        
       </main>
     </div>
   );
