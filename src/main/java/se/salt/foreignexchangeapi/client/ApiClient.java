@@ -3,6 +3,8 @@ package se.salt.foreignexchangeapi.client;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
+import se.salt.foreignexchangeapi.dto.FrankfurterLatestResponse;
+
 @Configuration
 public class ApiClient {
 
@@ -12,9 +14,9 @@ public class ApiClient {
         this.restClient = restClient;
     }
 
-    public String convertCurrency(String baseCurrency, String wantedCurrency){
+    public FrankfurterLatestResponse convertCurrency(String baseCurrency, String wantedCurrency){
         return restClient.get().uri("/latest?base=" + baseCurrency+ "&symbols=" + wantedCurrency)
                 .retrieve()
-                .body(String.class);
+                .body(FrankfurterLatestResponse.class);
     }
 }
