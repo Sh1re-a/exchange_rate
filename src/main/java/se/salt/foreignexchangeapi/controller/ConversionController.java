@@ -17,7 +17,7 @@ public class ConversionController {
         this.fxService = fxService;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/conversion")
     public RateConvertResponse convertResponse(
             @RequestParam String from,
             @RequestParam String to,

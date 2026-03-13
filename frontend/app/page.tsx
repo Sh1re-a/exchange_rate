@@ -26,7 +26,7 @@ async function callConvertApi(from: string, to: string, amount: string) {
     to,
     amount,
   });
-  const res = await fetch(`http://localhost:8080/api/test?${qs.toString()}`, {
+  const res = await fetch(`http://localhost:8080/api/conversion?${qs.toString()}`, {
     method: "GET",
   });
   return (await res.json()) as ConvertResponse;
