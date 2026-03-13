@@ -76,7 +76,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+      <main className="flex gap-14 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black">
         <div className="flex flex-row gap-5 w-full justify-between">
           <Select
             value={userInput.from}
@@ -137,8 +137,7 @@ export default function Home() {
         )}
         <Input
           type="number"
-          placeholder="Amount"
-          className="w-full"
+          className="self-center text-xl"
           value={userInput.amount}
           onChange={(e) =>
             setUserInput({ ...userInput, amount: e.target.value })
