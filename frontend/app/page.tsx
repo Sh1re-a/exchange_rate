@@ -138,7 +138,7 @@ export default function Home() {
           </Select>
         </div>
         {data && (
-          <div className="flex w-full border-0 rounded-lg flex-col gap-2 p-5 bg-zinc-100 dark:bg-zinc-800 items-center text-4xl font-extrabold ">
+          <div className="flex w-full h-full border-0 rounded-lg flex-col gap-2 p-5 bg-zinc-100 dark:bg-zinc-800 items-center text-4xl font-extrabold ">
             <h1>
               {data.amount} {userInput.from} -- {data.result.toFixed(2)}{" "}
               {userInput.to}

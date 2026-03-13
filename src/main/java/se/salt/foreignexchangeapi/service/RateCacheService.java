@@ -17,7 +17,7 @@ public class RateCacheService {
 
     }
 
-    @Cacheable("rates")
+   // @Cacheable("rates")
     public double getRate(CurrencyCode baseCurrency, CurrencyCode wantedCurrency) {
         FrankfurterLatestResponse response =
                 apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
