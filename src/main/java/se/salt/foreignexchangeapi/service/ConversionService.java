@@ -20,7 +20,15 @@ public class ConversionService {
         if(amountDouble <= 0){
             throw new IllegalArgumentException("Amount must be more than 0");
         }
-
+        if(baseCurrency.equals(wantedCurrency)){
+            return new RateConvertResponse(
+                    baseCurrency,
+                    wantedCurrency,
+                    amountDouble,
+                    1,
+                    amountDouble
+            );
+        }
         FrankfurterLatestResponse frankfurterLatestResponse = apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
         double rate = frankfurterLatestResponse.rates().get(wantedCurrency);
         return new RateConvertResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
