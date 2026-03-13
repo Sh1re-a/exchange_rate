@@ -24,4 +24,9 @@ public class ConversionController {
     ) {
         return conversionService.rateConvertResponse(from, to, amount);
     }
+
+    @GetMapping("/currencies")
+    public CurrencyCode[] getCurrencies() {
+        return CurrencyCode.values();
+    }
 }
