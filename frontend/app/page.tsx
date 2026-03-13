@@ -33,6 +33,7 @@ async function callConvertApi(from: string, to: string, amount: string) {
 }
 
 export default function Home() {
+  const [curriencies, setCurrencies] = useState<string[]>([]);
   const [data, setData] = useState<ConvertResponse>();
 
   const [userInput, setUserInput] = useState({
