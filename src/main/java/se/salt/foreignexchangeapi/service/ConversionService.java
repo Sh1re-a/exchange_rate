@@ -17,6 +17,10 @@ public class ConversionService {
 
     public RateConvertResponse rateConvertResponse(CurrencyCode baseCurrency, CurrencyCode wantedCurrency, String amount){
         double amountDouble = Double.parseDouble(amount);
+        if(amountDouble <= 0){
+            throw new IllegalArgumentException("Amount must be more than 0");
+        }
+
         FrankfurterLatestResponse frankfurterLatestResponse = apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
         double rate = frankfurterLatestResponse.rates().get(wantedCurrency);
         return new RateConvertResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
