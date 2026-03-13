@@ -6,11 +6,11 @@ import se.salt.foreignexchangeapi.dto.RateConvertResponse;
 import se.salt.foreignexchangeapi.dto.FrankfurterLatestResponse;
 
 @Service
-public class FxService {
+public class ConversionService {
 
     private final ApiClient apiClient;
 
-    public FxService(ApiClient apiClient) {
+    public ConversionService(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
