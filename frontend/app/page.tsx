@@ -67,6 +67,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if(!userInput.amount) return;
     handleConvert();
   }, [userInput.from, userInput.to, userInput.amount]);
 
