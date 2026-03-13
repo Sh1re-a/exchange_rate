@@ -32,7 +32,12 @@ async function callConvertApi(from: string, to: string, amount: string) {
       method: "GET",
     },
   );
-  return (await res.json()) as ConvertResponse;
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to convert currency");
+  }
+  return data as ConvertResponse;
 }
 
 export default function Home() {
@@ -47,6 +52,8 @@ export default function Home() {
   });
 
   async function handleConvert() {
+    try {
+      setError("");
     const response = await callConvertApi(
       userInput.from,
       userInput.to,
@@ -54,10 +61,12 @@ export default function Home() {
     );
     setData(response);
     console.log(response);
+    } catch (err) {
+      setError((err as Error).message);
+    } 
   }
 
   useEffect(() => {
-    if (!userInput.amount || Number(userInput.amount) <= 0) return;
     handleConvert();
   }, [userInput.from, userInput.to, userInput.amount]);
 
@@ -127,14 +136,18 @@ export default function Home() {
             </SelectContent>
           </Select>
         </div>
-         {data && (
+        {data && (
           <div className="flex w-full border-0 rounded-lg flex-col gap-2 p-5 bg-zinc-100 dark:bg-zinc-800 items-center text-4xl font-extrabold ">
-            <h1>{data.amount} {userInput.from} -- {data.result} {userInput.to}</h1>
+            <h1>
+              {data.amount} {userInput.from} -- {data.result} {userInput.to}
+            </h1>
             <h1>
               Rate: {data.rate} {userInput.to}
             </h1>
           </div>
         )}
+
+        <h1>{error}</h1>
         <Input
           type="number"
           className="self-center text-xl"
@@ -142,8 +155,7 @@ export default function Home() {
           onChange={(e) =>
             setUserInput({ ...userInput, amount: e.target.value })
           }
-        />       
-       
+        />
       </main>
     </div>
   );
