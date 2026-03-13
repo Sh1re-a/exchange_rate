@@ -1,18 +1,20 @@
 package se.salt.foreignexchangeapi.service;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
 import se.salt.foreignexchangeapi.client.ApiClient;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.FrankfurterLatestResponse;
 
+@Service
 public class RateCacheService {
 
     private final ApiClient apiClient;
     private int count = 0;
 
-    public RateCacheService(ApiClient apiClient, int count) {
+    public RateCacheService(ApiClient apiClient) {
         this.apiClient = apiClient;
-        this.count = count;
+
     }
 
     @Cacheable("rates")
