@@ -76,9 +76,9 @@ export default function Home() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Valuta</SelectLabel>
-                <SelectItem value="EUR" onClick={()=> setUserInput({...userInput, from:"EUR"})}>EUR</SelectItem>
-                <SelectItem value="SEK" onClick={()=> setUserInput({...userInput, from:"SEK"})}>SEK</SelectItem>
-                <SelectItem value="USD" onClick={()=> setUserInput({...userInput, from:"USD"})}>USD</SelectItem>
+                {curriencies.map((currency) => (
+                  <SelectItem key={currency} value={currency} onClick={()=> setUserInput({...userInput, from: currency})}>{currency}</SelectItem>
+                ))}
               </SelectGroup>
             </SelectContent>
           </Select>
