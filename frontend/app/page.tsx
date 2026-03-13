@@ -92,8 +92,7 @@ export default function Home() {
             value={userInput.from}
             onValueChange={(value) =>
               setUserInput({ ...userInput, from: value })
-            }
-          >
+            }>
             <SelectTrigger className="w">
               <SelectValue placeholder="Select a currency" />
             </SelectTrigger>
