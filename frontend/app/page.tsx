@@ -139,10 +139,10 @@ export default function Home() {
         {data && (
           <div className="flex w-full border-0 rounded-lg flex-col gap-2 p-5 bg-zinc-100 dark:bg-zinc-800 items-center text-4xl font-extrabold ">
             <h1>
-              {data.amount} {userInput.from} -- {data.result} {userInput.to}
+              {data.amount} {userInput.from} -- {data.result.toFixed(2)} {userInput.to}
             </h1>
             <h1>
-              Rate: {data.rate} {userInput.to}
+              Rate: {data.rate.toFixed(2)} {userInput.to}
             </h1>
           </div>
         )}
