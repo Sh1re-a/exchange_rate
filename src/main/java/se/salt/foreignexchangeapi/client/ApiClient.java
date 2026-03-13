@@ -1,10 +1,11 @@
 package se.salt.foreignexchangeapi.client;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import se.salt.foreignexchangeapi.dto.FrankfurterLatestResponse;
 
-@Configuration
+@Component
 public class ApiClient {
 
     private final RestClient restClient;
