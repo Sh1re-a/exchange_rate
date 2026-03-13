@@ -58,7 +58,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if(!userInput.amount) return;
+    if(!userInput.amount || Number(userInput.amount) <= 0) return;
     handleConvert();
   }, [userInput.from, userInput.to, userInput.amount]);
 
