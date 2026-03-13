@@ -56,7 +56,7 @@ export default function Home() {
         const data = await res.json();
         setCurrencies(data);
       } catch (err) {
-        setError("Failed to fetch currencies");
+        console.error(err);
       }
     };
     fetchCurrencies();
