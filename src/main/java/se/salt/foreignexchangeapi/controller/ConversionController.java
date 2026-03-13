@@ -2,6 +2,7 @@ package se.salt.foreignexchangeapi.controller;
 
 import org.springframework.web.bind.annotation.*;
 import se.salt.foreignexchangeapi.client.ApiClient;
+import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.RateConvertResponse;
 import se.salt.foreignexchangeapi.service.ConversionService;
 
@@ -17,8 +18,8 @@ public class ConversionController {
 
     @GetMapping("/conversion")
     public RateConvertResponse convertResponse(
-            @RequestParam String from,
-            @RequestParam String to,
+            @RequestParam CurrencyCode from,
+            @RequestParam CurrencyCode to,
             @RequestParam String amount
     ) {
         return conversionService.rateConvertResponse(from, to, amount);
