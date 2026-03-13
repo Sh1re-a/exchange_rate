@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
-import { use, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 
 type ConvertResponse = {
   from: string;
@@ -118,7 +118,7 @@ export default function Home() {
             value={userInput.to}
             onValueChange={(value) => setUserInput({ ...userInput, to: value })}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger> 
               <SelectValue placeholder="Select a currency" />
             </SelectTrigger>
             <SelectContent>
