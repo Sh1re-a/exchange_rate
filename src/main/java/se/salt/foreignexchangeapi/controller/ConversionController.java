@@ -8,11 +8,11 @@ import se.salt.foreignexchangeapi.service.FxService;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
-public class TestController {
+public class ConversionController {
     private final ApiClient apiClient;
     private final FxService fxService;
 
-    public TestController(ApiClient apiClient, FxService fxService) {
+    public ConversionController(ApiClient apiClient, FxService fxService) {
         this.apiClient = apiClient;
         this.fxService = fxService;
     }
