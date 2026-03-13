@@ -1,5 +1,6 @@
 package se.salt.foreignexchangeapi.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import se.salt.foreignexchangeapi.client.ApiClient;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
@@ -30,8 +31,17 @@ public class ConversionService {
             );
         }
         FrankfurterLatestResponse frankfurterLatestResponse = apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
-        double rate = frankfurterLatestResponse.rates().get(wantedCurrency.name());
+        double rate = getRate(baseCurrency, wantedCurrency);
         return new RateConvertResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
+    }
+
+    @Cacheable("rates")
+    public double getRate(CurrencyCode baseCurrency, CurrencyCode wantedCurrency) {
+        FrankfurterLatestResponse response =
+                apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
+        System.out.println("Calling Frankfurter API");
+        return response.rates().get(wantedCurrency.name());
+
     }
 }
 
