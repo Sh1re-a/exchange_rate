@@ -6,11 +6,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectLabel
+  SelectLabel,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 type ConvertResponse = {
   from: string;
@@ -26,9 +26,12 @@ async function callConvertApi(from: string, to: string, amount: string) {
     to,
     amount,
   });
-  const res = await fetch(`http://localhost:8080/api/conversion?${qs.toString()}`, {
-    method: "GET",
-  });
+  const res = await fetch(
+    `http://localhost:8080/api/conversion?${qs.toString()}`,
+    {
+      method: "GET",
+    },
+  );
   return (await res.json()) as ConvertResponse;
 }
 
@@ -43,11 +46,21 @@ export default function Home() {
     amount: "",
   });
 
+
   async function handleConvert() {
-    const response = await callConvertApi(userInput.from, userInput.to, userInput.amount);
+    const response = await callConvertApi(
+      userInput.from,
+      userInput.to,
+      userInput.amount,
+    );
     setData(response);
     console.log(response);
   }
+
+  useEffect(() => {
+    if(!userInput.amount) return;
+    handleConvert();
+  }, [userInput.from, userInput.to, userInput.amount]);
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -67,8 +80,10 @@ export default function Home() {
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex flex-row gap-5 w-full justify-between">
           <Select
-          value={userInput.from}
-          onValueChange={(value) => setUserInput({...userInput, from: value})}
+            value={userInput.from}
+            onValueChange={(value) =>
+              setUserInput({ ...userInput, from: value })
+            }
           >
             <SelectTrigger className="w">
               <SelectValue placeholder="Select a currency" />
@@ -77,14 +92,22 @@ export default function Home() {
               <SelectGroup>
                 <SelectLabel>Valuta</SelectLabel>
                 {curriencies.map((currency) => (
-                  <SelectItem key={currency} value={currency} onClick={()=> setUserInput({...userInput, from: currency})}>{currency}</SelectItem>
+                  <SelectItem
+                    key={currency}
+                    value={currency}
+                    onClick={() =>
+                      setUserInput({ ...userInput, from: currency })
+                    }
+                  >
+                    {currency}
+                  </SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
           </Select>
           <Select
-          value={userInput.to}
-          onValueChange={(value) => setUserInput({...userInput, to: value})}
+            value={userInput.to}
+            onValueChange={(value) => setUserInput({ ...userInput, to: value })}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select a currency" />
@@ -93,31 +116,49 @@ export default function Home() {
               <SelectGroup>
                 <SelectLabel>Valuta</SelectLabel>
                 {curriencies.map((currency) => (
-                  <SelectItem key={currency} value={currency} onClick={()=> setUserInput({...userInput, to: currency})}>{currency}</SelectItem>
+                  <SelectItem
+                    key={currency}
+                    value={currency}
+                    onClick={() => setUserInput({ ...userInput, to: currency })}
+                  >
+                    {currency}
+                  </SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
-        <Input type="text" placeholder="Amount" className="w-full" value={userInput.amount} onChange={(e) => setUserInput({...userInput, amount: e.target.value})} />
+        <Input
+          type="number"
+          placeholder="Amount"
+          className="w-full"
+          value={userInput.amount}
+          onChange={(e) =>
+            setUserInput({ ...userInput, amount: e.target.value })
+          }
+        />
 
         <button
           onClick={handleConvert}
           className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
         >
-          Convert 
+          Convert
         </button>
         {data && (
-          <div className="mt-5">
+          <div className="flex flex-col justify-center content-center  gap-2 mt-5">
             <h1>From:{userInput.from}</h1>
             <h1>To: {userInput.to}</h1>
-            <h1>Amount: {data.amount} {userInput.from}</h1>
-            <h1>Rate: {data.rate} {userInput.to}</h1>
-            <h1>Result: {data.result} {userInput.to}</h1>
+            <h1>
+              Amount: {data.amount} {userInput.from}
+            </h1>
+            <h1>
+              Rate: {data.rate} {userInput.to}
+            </h1>
+            <h1>
+              Result: {data.result} {userInput.to}
+            </h1>
           </div>
         )}
-        
-        
       </main>
     </div>
   );
