@@ -46,7 +46,6 @@ export default function Home() {
     amount: "",
   });
 
-
   async function handleConvert() {
     const response = await callConvertApi(
       userInput.from,
@@ -58,7 +57,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if(!userInput.amount || Number(userInput.amount) <= 0) return;
+    if (!userInput.amount || Number(userInput.amount) <= 0) return;
     handleConvert();
   }, [userInput.from, userInput.to, userInput.amount]);
 
@@ -128,6 +127,14 @@ export default function Home() {
             </SelectContent>
           </Select>
         </div>
+         {data && (
+          <div className="flex w-full border-0 rounded-lg flex-col gap-2 p-5 bg-zinc-100 dark:bg-zinc-800 items-center text-4xl font-extrabold ">
+            <h1>{data.amount} {userInput.from} -- {data.result} {userInput.to}</h1>
+            <h1>
+              Rate: {data.rate} {userInput.to}
+            </h1>
+          </div>
+        )}
         <Input
           type="number"
           placeholder="Amount"
@@ -136,29 +143,8 @@ export default function Home() {
           onChange={(e) =>
             setUserInput({ ...userInput, amount: e.target.value })
           }
-        />
-
-        <button
-          onClick={handleConvert}
-          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-        >
-          Convert
-        </button>
-        {data && (
-          <div className="flex flex-col justify-center content-center  gap-2 mt-5">
-            <h1>From:{userInput.from}</h1>
-            <h1>To: {userInput.to}</h1>
-            <h1>
-              Amount: {data.amount} {userInput.from}
-            </h1>
-            <h1>
-              Rate: {data.rate} {userInput.to}
-            </h1>
-            <h1>
-              Result: {data.result} {userInput.to}
-            </h1>
-          </div>
-        )}
+        />       
+       
       </main>
     </div>
   );
