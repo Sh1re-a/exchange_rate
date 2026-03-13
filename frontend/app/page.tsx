@@ -38,8 +38,8 @@ export default function Home() {
   const [data, setData] = useState<ConvertResponse>();
 
   const [userInput, setUserInput] = useState({
-    from: "",
-    to: "",
+    from: "SEK",
+    to: "USD",
     amount: "",
   });
 
