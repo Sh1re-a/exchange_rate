@@ -11,10 +11,11 @@ import se.salt.foreignexchangeapi.dto.FrankfurterLatestResponse;
 public class ConversionService {
 
     private final ApiClient apiClient;
-    private int count = 0;
+    private final RateCacheService rateCacheService;
 
-    public ConversionService(ApiClient apiClient) {
+    public ConversionService(ApiClient apiClient, RateCacheService rateCacheService) {
         this.apiClient = apiClient;
+        this.rateCacheService = rateCacheService;
     }
 
     public RateConvertResponse rateConvertResponse(CurrencyCode baseCurrency, CurrencyCode wantedCurrency, String amount){
@@ -31,20 +32,10 @@ public class ConversionService {
                     amountDouble
             );
         }
-        FrankfurterLatestResponse frankfurterLatestResponse = apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
-        double rate = getRate(baseCurrency, wantedCurrency);
+        double rate = rateCacheService.getRate(baseCurrency, wantedCurrency);
         return new RateConvertResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
     }
 
-    @Cacheable("rates")
-    public double getRate(CurrencyCode baseCurrency, CurrencyCode wantedCurrency) {
-        FrankfurterLatestResponse response =
-                apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
-        count++;
-        System.out.println("Calling Frankfurter API " + count);
 
-        return response.rates().get(wantedCurrency.name());
-
-    }
 }
 
