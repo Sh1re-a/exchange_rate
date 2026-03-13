@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type ConvertResponse = {
   from: string;
@@ -48,6 +48,19 @@ export default function Home() {
     setData(response);
     console.log(response);
   }
+
+  useEffect(() => {
+    const fetchCurrencies = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/api/currencies");
+        const data = await res.json();
+        setCurrencies(data);
+      } catch (err) {
+        setError("Failed to fetch currencies");
+      }
+    };
+    fetchCurrencies();
+  }, []);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
