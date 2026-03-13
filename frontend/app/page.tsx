@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type ConvertResponse = {
   from: string;
@@ -54,20 +54,20 @@ export default function Home() {
   async function handleConvert() {
     try {
       setError("");
-    const response = await callConvertApi(
-      userInput.from,
-      userInput.to,
-      userInput.amount,
-    );
-    setData(response);
-    console.log(response);
+      const response = await callConvertApi(
+        userInput.from,
+        userInput.to,
+        userInput.amount,
+      );
+      setData(response);
+      console.log(response);
     } catch (err) {
       setError((err as Error).message);
-    } 
+    }
   }
 
   useEffect(() => {
-    if(!userInput.amount) return;
+    if (!userInput.amount) return;
     handleConvert();
   }, [userInput.from, userInput.to, userInput.amount]);
 
@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex gap-14 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black">
+      <main className="flex gap-14 w-full max-w-3xl flex-col items-center justify-between p-32 bg-white dark:bg-black">
         <div className="flex flex-row gap-5 w-full justify-between">
           <Select
             value={userInput.from}
@@ -118,7 +118,7 @@ export default function Home() {
             value={userInput.to}
             onValueChange={(value) => setUserInput({ ...userInput, to: value })}
           >
-            <SelectTrigger> 
+            <SelectTrigger>
               <SelectValue placeholder="Select a currency" />
             </SelectTrigger>
             <SelectContent>
@@ -140,7 +140,8 @@ export default function Home() {
         {data && (
           <div className="flex w-full border-0 rounded-lg flex-col gap-2 p-5 bg-zinc-100 dark:bg-zinc-800 items-center text-4xl font-extrabold ">
             <h1>
-              {data.amount} {userInput.from} -- {data.result.toFixed(2)} {userInput.to}
+              {data.amount} {userInput.from} -- {data.result.toFixed(2)}{" "}
+              {userInput.to}
             </h1>
             <h1>
               Rate: {data.rate.toFixed(2)} {userInput.to}
