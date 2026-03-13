@@ -9,11 +9,9 @@ import se.salt.foreignexchangeapi.service.ConversionService;
 @RestController
 @RequestMapping("/api")
 public class ConversionController {
-    private final ApiClient apiClient;
     private final ConversionService conversionService;
 
-    public ConversionController(ApiClient apiClient, ConversionService conversionService) {
-        this.apiClient = apiClient;
+    public ConversionController(ConversionService conversionService) {
         this.conversionService = conversionService;
     }
 
