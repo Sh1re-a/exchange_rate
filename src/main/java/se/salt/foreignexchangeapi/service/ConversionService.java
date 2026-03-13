@@ -11,6 +11,7 @@ import se.salt.foreignexchangeapi.dto.FrankfurterLatestResponse;
 public class ConversionService {
 
     private final ApiClient apiClient;
+    private int count = 0;
 
     public ConversionService(ApiClient apiClient) {
         this.apiClient = apiClient;
@@ -39,7 +40,9 @@ public class ConversionService {
     public double getRate(CurrencyCode baseCurrency, CurrencyCode wantedCurrency) {
         FrankfurterLatestResponse response =
                 apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
-        System.out.println("Calling Frankfurter API");
+        count++;
+        System.out.println("Calling Frankfurter API " + count);
+
         return response.rates().get(wantedCurrency.name());
 
     }
