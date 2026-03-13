@@ -30,7 +30,7 @@ public class ConversionService {
             );
         }
         FrankfurterLatestResponse frankfurterLatestResponse = apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
-        double rate = frankfurterLatestResponse.rates().get(wantedCurrency);
+        double rate = frankfurterLatestResponse.rates().get(wantedCurrency.name());
         return new RateConvertResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
     }
 }
