@@ -3,6 +3,7 @@ package se.salt.foreignexchangeapi.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.salt.foreignexchangeapi.client.ApiClient;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.ConversionRequest;
 import se.salt.foreignexchangeapi.dto.ConversionResponse;
@@ -16,9 +17,11 @@ import java.util.*;
 @RequestMapping("/api")
 public class ConversionController {
     private final ConversionService conversionService;
+    private final ApiClient apiClient;
 
-    public ConversionController(ConversionService conversionService) {
+    public ConversionController(ConversionService conversionService, ApiClient apiClient) {
         this.conversionService = conversionService;
+        this.apiClient = apiClient;
     }
 
     /* @GetMapping("/conversion")
@@ -42,13 +45,7 @@ public class ConversionController {
     }
 
     @GetMapping("/currencies")
-    public ResponseEntity<List<CurrencyResponse>> getCurrencies() {
-        return ResponseEntity.ok(Arrays.stream(CurrencyCode.values())
-                .map(currency -> new CurrencyResponse(
-                        currency.name(),
-                        currency.getFullName()
-                ))
-                .toList());
-
+    public ResponseEntity<Map<String,String>> getCurrencies() {
+        return ResponseEntity.ok(conversionService.getAllCurrencies());
     }
 }

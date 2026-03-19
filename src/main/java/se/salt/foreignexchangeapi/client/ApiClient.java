@@ -1,9 +1,11 @@
 package se.salt.foreignexchangeapi.client;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import se.salt.foreignexchangeapi.dto.FrankfurterConversionResponse;
-import se.salt.foreignexchangeapi.dto.FrankfurterCurrenciesResponse;
+
+import java.util.Map;
 
 @Component
 public class ApiClient {
@@ -20,11 +22,12 @@ public class ApiClient {
                 .body(FrankfurterConversionResponse.class);
     }
 
-    public FrankfurterCurrenciesResponse getAllCurrenciesAndTheirName(){
+    public Map<String, String> getAllCurrenciesAndTheirName(){
         return restClient.get()
-                .uri("currencies")
+                .uri("/currencies")
                 .retrieve()
-                .body(FrankfurterCurrenciesResponse.class);
+                .body(new ParameterizedTypeReference<Map<String, String>>() {
+                });
     }
 
 

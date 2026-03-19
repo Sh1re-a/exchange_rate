@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import se.salt.foreignexchangeapi.client.ApiClient;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.FrankfurterConversionResponse;
-import se.salt.foreignexchangeapi.dto.FrankfurterCurrenciesResponse;
 
 import java.util.Map;
 
@@ -30,9 +29,8 @@ public class RateCacheService {
     }
 
     public Map<String, String> getCurrencies(){
-        FrankfurterCurrenciesResponse response =
-                apiClient.getAllCurrenciesAndTheirName();
-        return response.currencies();
+
+        return apiClient.getAllCurrenciesAndTheirName();
 
 
     }

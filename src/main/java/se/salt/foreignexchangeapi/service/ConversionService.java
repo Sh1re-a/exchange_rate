@@ -7,6 +7,7 @@ import se.salt.foreignexchangeapi.dto.ConversionResponse;
 import se.salt.foreignexchangeapi.dto.CurrencyResponse;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Service
 public class ConversionService {
@@ -36,8 +37,8 @@ public class ConversionService {
                 amount.multiply(BigDecimal.valueOf(rate)));
     }
 
-    public CurrencyResponse getAllCurrencies(){
-        return new CurrencyResponse(rateCacheService.getCurrencies());
+    public Map<String, String> getAllCurrencies(){
+        return rateCacheService.getCurrencies();
     }
 
 
