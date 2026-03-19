@@ -11,27 +11,26 @@ public class ConversionService {
 
     private final RateCacheService rateCacheService;
 
-    public ConversionService(ApiClient apiClient, RateCacheService rateCacheService) {
-        this.apiClient = apiClient;
+    public ConversionService(RateCacheService rateCacheService) {
         this.rateCacheService = rateCacheService;
     }
 
-    public ConversionResponse convert(CurrencyCode baseCurrency, CurrencyCode wantedCurrency, String amount){
+    public ConversionResponse convert(CurrencyCode baseCurrency, CurrencyCode targetCurrency, String amount){
         double amountDouble = Double.parseDouble(amount);
         if(amountDouble <= 0){
             throw new IllegalArgumentException("Amount must be more than 0");
         }
-        if(baseCurrency.equals(wantedCurrency)){
+        if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
                     baseCurrency,
-                    wantedCurrency,
+                    targetCurrency,
                     amountDouble,
                     1,
                     amountDouble
             );
         }
-        double rate = rateCacheService.getRate(baseCurrency, wantedCurrency);
-        return new ConversionResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
+        double rate = rateCacheService.getRate(baseCurrency, targetCurrency);
+        return new ConversionResponse(baseCurrency, targetCurrency, amountDouble, rate, amountDouble * rate);
     }
 
 
