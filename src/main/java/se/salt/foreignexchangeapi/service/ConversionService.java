@@ -5,6 +5,8 @@ import se.salt.foreignexchangeapi.client.ApiClient;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.ConversionResponse;
 
+import java.math.BigDecimal;
+
 @Service
 public class ConversionService {
 
@@ -15,22 +17,22 @@ public class ConversionService {
         this.rateCacheService = rateCacheService;
     }
 
-    public ConversionResponse convert(CurrencyCode baseCurrency, CurrencyCode targetCurrency, String amount){
-        double amountDouble = Double.parseDouble(amount);
-        if(amountDouble <= 0){
-            throw new IllegalArgumentException("Amount must be more than 0");
-        }
+    public ConversionResponse convert(CurrencyCode baseCurrency, CurrencyCode targetCurrency, BigDecimal amount){
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
                     baseCurrency,
                     targetCurrency,
-                    amountDouble,
-                    1,
-                    amountDouble
+                    amount,
+                    BigDecimal.valueOf(1),
+                    amount
             );
         }
         double rate = rateCacheService.getRate(baseCurrency, targetCurrency);
-        return new ConversionResponse(baseCurrency, targetCurrency, amountDouble, rate, amountDouble * rate);
+        return new ConversionResponse(baseCurrency,
+                targetCurrency,
+                amount,
+                BigDecimal.valueOf(rate),
+                amount.multiply(BigDecimal.valueOf(rate)));
     }
 
 
