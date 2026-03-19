@@ -1,11 +1,9 @@
 package se.salt.foreignexchangeapi.service;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import se.salt.foreignexchangeapi.client.ApiClient;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
-import se.salt.foreignexchangeapi.dto.RateConvertResponse;
-import se.salt.foreignexchangeapi.dto.FrankfurterLatestResponse;
+import se.salt.foreignexchangeapi.dto.ConversionResponse;
 
 @Service
 public class ConversionService {
@@ -18,13 +16,13 @@ public class ConversionService {
         this.rateCacheService = rateCacheService;
     }
 
-    public RateConvertResponse rateConvertResponse(CurrencyCode baseCurrency, CurrencyCode wantedCurrency, String amount){
+    public ConversionResponse rateConvertResponse(CurrencyCode baseCurrency, CurrencyCode wantedCurrency, String amount){
         double amountDouble = Double.parseDouble(amount);
         if(amountDouble <= 0){
             throw new IllegalArgumentException("Amount must be more than 0");
         }
         if(baseCurrency.equals(wantedCurrency)){
-            return new RateConvertResponse(
+            return new ConversionResponse(
                     baseCurrency,
                     wantedCurrency,
                     amountDouble,
@@ -33,7 +31,7 @@ public class ConversionService {
             );
         }
         double rate = rateCacheService.getRate(baseCurrency, wantedCurrency);
-        return new RateConvertResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
+        return new ConversionResponse(baseCurrency, wantedCurrency, amountDouble, rate, amountDouble * rate);
     }
 
 
