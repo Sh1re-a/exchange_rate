@@ -39,4 +39,7 @@ public enum CurrencyCode {
         this.fullName = fullName;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
 }
