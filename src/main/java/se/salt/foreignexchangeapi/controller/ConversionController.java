@@ -17,7 +17,7 @@ public class ConversionController {
         this.conversionService = conversionService;
     }
 
-    @GetMapping("/conversion")
+    /* @GetMapping("/conversion")
     public ConversionResponse convertResponse(
             @RequestParam CurrencyCode from,
             @RequestParam CurrencyCode to,
@@ -25,6 +25,8 @@ public class ConversionController {
     ) {
         return conversionService.convert(from, to, amount);
     }
+
+     */
 
     @PostMapping("/conversions")
     public ConversionResponse convert(@Valid @RequestBody ConversionRequest request){
