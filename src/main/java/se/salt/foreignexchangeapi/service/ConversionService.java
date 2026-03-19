@@ -8,7 +8,7 @@ import se.salt.foreignexchangeapi.dto.ConversionResponse;
 @Service
 public class ConversionService {
 
-    private final ApiClient apiClient;
+
     private final RateCacheService rateCacheService;
 
     public ConversionService(ApiClient apiClient, RateCacheService rateCacheService) {
@@ -16,7 +16,7 @@ public class ConversionService {
         this.rateCacheService = rateCacheService;
     }
 
-    public ConversionResponse rateConvertResponse(CurrencyCode baseCurrency, CurrencyCode wantedCurrency, String amount){
+    public ConversionResponse convert(CurrencyCode baseCurrency, CurrencyCode wantedCurrency, String amount){
         double amountDouble = Double.parseDouble(amount);
         if(amountDouble <= 0){
             throw new IllegalArgumentException("Amount must be more than 0");

@@ -21,7 +21,7 @@ public class ConversionController {
             @RequestParam CurrencyCode to,
             @RequestParam String amount
     ) {
-        return conversionService.rateConvertResponse(from, to, amount);
+        return conversionService.convert(from, to, amount);
     }
 
     @GetMapping("/currencies")
