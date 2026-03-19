@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import se.salt.foreignexchangeapi.client.ApiClient;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.ConversionResponse;
+import se.salt.foreignexchangeapi.dto.CurrencyResponse;
 
 import java.math.BigDecimal;
 
@@ -33,6 +34,10 @@ public class ConversionService {
                 amount,
                 BigDecimal.valueOf(rate),
                 amount.multiply(BigDecimal.valueOf(rate)));
+    }
+
+    public CurrencyResponse getAllCurrencies(){
+        return new CurrencyResponse(rateCacheService.getCurrencies());
     }
 
 

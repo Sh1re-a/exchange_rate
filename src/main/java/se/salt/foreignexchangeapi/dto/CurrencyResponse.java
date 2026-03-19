@@ -1,8 +1,9 @@
 package se.salt.foreignexchangeapi.dto;
 
+import java.util.Map;
+
 public record CurrencyResponse(
-        String code,
-        String name
+        Map<String, String> currencies
 ) {
 
 }
