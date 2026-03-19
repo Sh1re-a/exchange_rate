@@ -27,11 +27,8 @@ public class RateCacheService {
         System.out.println("Calling Frankfurter API " + count);
         return response.rates().get(wantedCurrency.name());
     }
-
+    @Cacheable("currencies")
     public Map<String, String> getCurrencies(){
-
         return apiClient.getAllCurrenciesAndTheirName();
-
-
     }
 }
