@@ -1,6 +1,7 @@
 package se.salt.foreignexchangeapi.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.ConversionRequest;
@@ -41,13 +42,13 @@ public class ConversionController {
     }
 
     @GetMapping("/currencies")
-    public List<CurrencyResponse> getCurrencies() {
-        return Arrays.stream(CurrencyCode.values())
+    public ResponseEntity<List<CurrencyResponse>> getCurrencies() {
+        return ResponseEntity.ok(Arrays.stream(CurrencyCode.values())
                 .map(currency -> new CurrencyResponse(
                         currency.name(),
                         currency.getFullName()
                 ))
-                .toList();
+                .toList());
 
     }
 }
