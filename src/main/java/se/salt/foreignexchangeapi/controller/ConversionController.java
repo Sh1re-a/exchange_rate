@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.*;
 import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.ConversionRequest;
 import se.salt.foreignexchangeapi.dto.ConversionResponse;
+import se.salt.foreignexchangeapi.dto.CurrencyResponse;
 import se.salt.foreignexchangeapi.service.ConversionService;
+
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -38,7 +41,13 @@ public class ConversionController {
     }
 
     @GetMapping("/currencies")
-    public CurrencyCode[] getCurrencies() {
-        return CurrencyCode.values();
+    public List<CurrencyResponse> getCurrencies() {
+        return Arrays.stream(CurrencyCode.values())
+                .map(currency -> new CurrencyResponse(
+                        currency.name(),
+                        currency.getFullName()
+                ))
+                .toList();
+
     }
 }
