@@ -17,9 +17,8 @@ public class ConversionController {
     private final ConversionService conversionService;
 
 
-    public ConversionController(ConversionService conversionService, ApiClient apiClient) {
+    public ConversionController(ConversionService conversionService) {
         this.conversionService = conversionService;
-        this.apiClient = apiClient;
     }
 
     /* @GetMapping("/conversion")
@@ -32,7 +31,6 @@ public class ConversionController {
     }
 
      */
-
     @PostMapping("/conversions")
     public ResponseEntity<ConversionResponse> convert
             (@Valid @RequestBody ConversionRequest request,
