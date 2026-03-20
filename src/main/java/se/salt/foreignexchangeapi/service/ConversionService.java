@@ -19,11 +19,11 @@ public class ConversionService {
     public ConversionResponse convert(String baseCurrency, String targetCurrency, BigDecimal amount){
         Map<String , String > currencies = rateCacheService.getCurrencies();
 
-        if(!currencies.containsKey(baseCurrency)){
+        if(!currencies.containsKey(baseCurrency.toUpperCase())){
             throw new IllegalStateException("Currency not supported or does not exist: " + baseCurrency);
         }
 
-        if(!currencies.containsKey(targetCurrency)){
+        if(!currencies.containsKey(targetCurrency.toUpperCase())){
             throw new IllegalStateException("Currency not supported or does not exist: " + targetCurrency);
         }
 
