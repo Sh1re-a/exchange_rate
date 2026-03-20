@@ -4,9 +4,10 @@ import java.math.BigDecimal;
 
 public record ConversionResponse(
         String baseCurrency,
-        String wantedCurrency,
-        String fullName,
+        String baseFullName,
         BigDecimal amount,
+        String targetCurrency,
+        String targetFullName,
         BigDecimal rate,
         BigDecimal result
 ) {

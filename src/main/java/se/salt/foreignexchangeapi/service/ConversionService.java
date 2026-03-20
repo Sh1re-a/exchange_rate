@@ -17,20 +17,26 @@ public class ConversionService {
     }
 
     public ConversionResponse convert(String baseCurrency, String targetCurrency, BigDecimal amount){
+        Map<String , String > currencies = rateCacheService.getCurrencies();
 
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
                     baseCurrency,
-                    targetCurrency,
+                    currencies.get(baseCurrency),
                     amount,
+                    targetCurrency,
+                    currencies.get(targetCurrency),
                     BigDecimal.valueOf(1),
                     amount
             );
         }
         double rate = rateCacheService.getRate(baseCurrency, targetCurrency);
-        return new ConversionResponse(baseCurrency,
-                targetCurrency,
+        return new ConversionResponse(
+                baseCurrency,
+                currencies.get(baseCurrency),
                 amount,
+                targetCurrency,
+                currencies.get(targetCurrency),
                 BigDecimal.valueOf(rate),
                 amount.multiply(BigDecimal.valueOf(rate)));
     }
