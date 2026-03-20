@@ -26,12 +26,12 @@ public class ConversionService {
 
         if(!currencies.containsKey(baseCurrency)){
             logger.warn("Currency not supported or does not exist={}", baseCurrency);
-            throw new IllegalStateException("Currency not supported or does not exist: " + baseCurrency);
+            throw new IllegalArgumentException("Currency not supported or does not exist: " + baseCurrency);
         }
 
         if(!currencies.containsKey(targetCurrency)){
             logger.warn("Currency not supported or does not exist={}", targetCurrency);
-            throw new IllegalStateException("Currency not supported or does not exist: " + targetCurrency);
+            throw new IllegalArgumentException("Currency not supported or does not exist: " + targetCurrency);
         }
 
         if(baseCurrency.equals(targetCurrency)){
