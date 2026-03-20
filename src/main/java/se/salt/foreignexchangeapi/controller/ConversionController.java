@@ -15,7 +15,7 @@ import java.util.*;
 @RequestMapping("/api")
 public class ConversionController {
     private final ConversionService conversionService;
-    private final ApiClient apiClient;
+
 
     public ConversionController(ConversionService conversionService, ApiClient apiClient) {
         this.conversionService = conversionService;
@@ -40,7 +40,7 @@ public class ConversionController {
             String userAgent){
 
         return ResponseEntity.ok()
-                .header("User-Agent" , userAgent)
+                .header("User-Agent" , "Request from " +userAgent)
                 .body(conversionService.convert(
                 request.from(),
                 request.to(),
@@ -49,7 +49,9 @@ public class ConversionController {
     }
 
     @GetMapping("/currencies")
-    public ResponseEntity<Map<String,String>> getCurrencies() {
-        return ResponseEntity.ok(conversionService.getAllCurrencies());
+    public ResponseEntity<Map<String,String>> getCurrencies(@RequestHeader(value = "User-Agent", required = false) String userAgent) {
+        return ResponseEntity.ok()
+                .header("User-Agent", "Request from " + userAgent)
+                .body(conversionService.getAllCurrencies());
     }
 }
