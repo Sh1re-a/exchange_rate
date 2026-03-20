@@ -1,2 +1,10 @@
 fx:
   base-url: https://api.frankfurter.dev/v1
+
+logging:
+  level:
+    root: warn
+    se.salt.foreignexchangeapi: INFO
+  file:
+    path: logs
+    name: logs/exchange_rate.log

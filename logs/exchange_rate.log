@@ -1,0 +1,20 @@
+2026-03-20T14:26:53.832+01:00  INFO 58339 --- [main] s.s.f.ForeignExchangeApplication         : Starting ForeignExchangeApplication using Java 25.0.2 with PID 58339 (/Users/shirre/Salt/exchange_rate/target/classes started by shirre in /Users/shirre/Salt/exchange_rate)
+2026-03-20T14:26:53.833+01:00  INFO 58339 --- [main] s.s.f.ForeignExchangeApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-03-20T14:26:54.374+01:00  INFO 58339 --- [main] s.s.f.ForeignExchangeApplication         : Started ForeignExchangeApplication in 0.707 seconds (process running for 0.993)
+2026-03-20T14:27:07.992+01:00  INFO 58339 --- [http-nio-8080-exec-2] s.s.f.filter.RequestLoggingFilter        : Incoming request=POST path=/api/conversions | User-Agent=PostmanRuntime/7.52.0
+2026-03-20T14:27:08.060+01:00  INFO 58339 --- [http-nio-8080-exec-2] s.s.f.controller.ConversionController    : Incoming conversion request User-Agent=PostmanRuntime/7.52.0 body: baseCurrency=sek, targetCurrency=swe, amount=34
+2026-03-20T14:27:08.061+01:00  INFO 58339 --- [http-nio-8080-exec-2] s.s.f.service.RateCacheService           : Calling External Frankfurter API getCurrencies() count=1
+2026-03-20T14:27:08.272+01:00  WARN 58339 --- [http-nio-8080-exec-2] s.s.f.service.ConversionService          : Currency not supported or does not exist=SWE
+2026-03-20T14:27:08.285+01:00  INFO 58339 --- [http-nio-8080-exec-2] s.s.f.filter.RequestLoggingFilter        : Completed request -> method=POST path=/api/conversions status=400 durationMs=293
+2026-03-20T14:27:10.285+01:00  INFO 58339 --- [http-nio-8080-exec-4] s.s.f.filter.RequestLoggingFilter        : Incoming request=POST path=/api/conversions | User-Agent=PostmanRuntime/7.52.0
+2026-03-20T14:27:10.288+01:00  INFO 58339 --- [http-nio-8080-exec-4] s.s.f.controller.ConversionController    : Incoming conversion request User-Agent=PostmanRuntime/7.52.0 body: baseCurrency=sek, targetCurrency=swe, amount=34
+2026-03-20T14:27:10.289+01:00  WARN 58339 --- [http-nio-8080-exec-4] s.s.f.service.ConversionService          : Currency not supported or does not exist=SWE
+2026-03-20T14:27:10.292+01:00  INFO 58339 --- [http-nio-8080-exec-4] s.s.f.filter.RequestLoggingFilter        : Completed request -> method=POST path=/api/conversions status=400 durationMs=7
+2026-03-20T14:27:17.712+01:00  INFO 58339 --- [http-nio-8080-exec-6] s.s.f.filter.RequestLoggingFilter        : Incoming request=POST path=/api/conversions | User-Agent=PostmanRuntime/7.52.0
+2026-03-20T14:27:17.720+01:00  INFO 58339 --- [http-nio-8080-exec-6] s.s.f.controller.ConversionController    : Incoming conversion request User-Agent=PostmanRuntime/7.52.0 body: baseCurrency=sek, targetCurrency=nok, amount=34
+2026-03-20T14:27:17.788+01:00  INFO 58339 --- [http-nio-8080-exec-6] s.s.f.service.RateCacheService           : Calling External Frankfurter API getRate() count=1
+2026-03-20T14:27:17.793+01:00  INFO 58339 --- [http-nio-8080-exec-6] s.s.f.filter.RequestLoggingFilter        : Completed request -> method=POST path=/api/conversions status=200 durationMs=81
+2026-03-20T14:27:24.790+01:00  INFO 58339 --- [http-nio-8080-exec-7] s.s.f.filter.RequestLoggingFilter        : Incoming request=POST path=/api/conversions | User-Agent=PostmanRuntime/7.52.0
+2026-03-20T14:27:24.801+01:00  INFO 58339 --- [http-nio-8080-exec-7] s.s.f.filter.RequestLoggingFilter        : Completed request -> method=POST path=/api/conversions status=400 durationMs=11
+2026-03-20T14:27:31.981+01:00  INFO 58339 --- [http-nio-8080-exec-9] s.s.f.filter.RequestLoggingFilter        : Incoming request=POST path=/api/conversions | User-Agent=PostmanRuntime/7.52.0
+2026-03-20T14:27:31.985+01:00  INFO 58339 --- [http-nio-8080-exec-9] s.s.f.filter.RequestLoggingFilter        : Completed request -> method=POST path=/api/conversions status=400 durationMs=5
