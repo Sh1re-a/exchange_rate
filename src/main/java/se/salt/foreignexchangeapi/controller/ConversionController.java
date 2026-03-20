@@ -36,11 +36,12 @@ public class ConversionController {
      */
 
     @PostMapping("/conversions")
-    public ConversionResponse convert(@Valid @RequestBody ConversionRequest request){
-        return conversionService.convert(
+    public ResponseEntity<ConversionResponse> convert(@Valid @RequestBody ConversionRequest request){
+
+        return ResponseEntity.ok(conversionService.convert(
                 request.from(),
                 request.to(),
-                request.amount()
+                request.amount())
         );
     }
 

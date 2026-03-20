@@ -20,6 +20,7 @@ public class ConversionService {
     }
 
     public ConversionResponse convert(CurrencyCode baseCurrency, CurrencyCode targetCurrency, BigDecimal amount){
+
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
                     baseCurrency,
@@ -38,6 +39,7 @@ public class ConversionService {
     }
 
     public Map<String, String> getAllCurrencies(){
+
         return rateCacheService.getCurrencies();
     }
 
