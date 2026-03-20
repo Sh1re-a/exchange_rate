@@ -1,10 +1,7 @@
 package se.salt.foreignexchangeapi.service;
 
 import org.springframework.stereotype.Service;
-import se.salt.foreignexchangeapi.client.ApiClient;
-import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.ConversionResponse;
-import se.salt.foreignexchangeapi.dto.CurrencyResponse;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -19,7 +16,7 @@ public class ConversionService {
         this.rateCacheService = rateCacheService;
     }
 
-    public ConversionResponse convert(CurrencyCode baseCurrency, CurrencyCode targetCurrency, BigDecimal amount){
+    public ConversionResponse convert(String baseCurrency, String targetCurrency, BigDecimal amount){
 
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
@@ -42,6 +39,7 @@ public class ConversionService {
 
         return rateCacheService.getCurrencies();
     }
+
 
 
 }

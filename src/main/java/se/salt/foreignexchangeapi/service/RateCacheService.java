@@ -3,7 +3,6 @@ package se.salt.foreignexchangeapi.service;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import se.salt.foreignexchangeapi.client.ApiClient;
-import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.FrankfurterConversionResponse;
 
 import java.util.Map;
@@ -22,12 +21,12 @@ public class RateCacheService {
     }
 
     @Cacheable("rates")
-    public double getRate(CurrencyCode baseCurrency, CurrencyCode wantedCurrency) {
+    public double getRate(String baseCurrency, String wantedCurrency) {
         FrankfurterConversionResponse response =
-                apiClient.getRatesFromWantedCurrency(baseCurrency.name(), wantedCurrency.name());
+                apiClient.getRatesFromWantedCurrency(baseCurrency, wantedCurrency);
         countRate++;
         System.out.println("Calling Frankfurter API getRate() " + countRate);
-        return Optional.ofNullable(response.rates().get(wantedCurrency.name()))
+        return Optional.ofNullable(response.rates().get(wantedCurrency))
                 .orElseThrow(() -> new IllegalStateException("Could not fetch rate from API"));
     }
     @Cacheable("currencies")

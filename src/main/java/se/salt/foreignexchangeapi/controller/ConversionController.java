@@ -4,10 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.salt.foreignexchangeapi.client.ApiClient;
-import se.salt.foreignexchangeapi.domain.CurrencyCode;
 import se.salt.foreignexchangeapi.dto.ConversionRequest;
 import se.salt.foreignexchangeapi.dto.ConversionResponse;
-import se.salt.foreignexchangeapi.dto.CurrencyResponse;
 import se.salt.foreignexchangeapi.service.ConversionService;
 
 import java.util.*;
