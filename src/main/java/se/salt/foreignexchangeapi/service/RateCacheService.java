@@ -30,8 +30,12 @@ public class RateCacheService {
                 apiClient.getRatesFromWantedCurrency(baseCurrency, wantedCurrency);
         countRate++;
         logger.info("Calling External Frankfurter API getRate() count={}", countRate);
-        return Optional.ofNullable(response.rates().get(wantedCurrency))
-                .orElseThrow(() -> new IllegalStateException("Could not fetch rate from API"));
+        Double rate = response.rates().get(wantedCurrency);
+        if(rate == null){
+            logger.info("Could not fetch rate from External API");
+            throw new IllegalStateException("Could not fetch rate from External API");
+        }
+        return rate;
     }
     @Cacheable("currencies")
     public Map<String, String> getCurrencies(){
