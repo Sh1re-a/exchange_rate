@@ -32,7 +32,7 @@ public class RateCacheService {
         logger.info("Calling External Frankfurter API getRate() count={}", countRate);
         Double rate = response.rates().get(wantedCurrency);
         if(rate == null){
-            logger.info("Could not fetch rate from External API");
+            logger.warn("Could not fetch rate from External API");
             throw new IllegalStateException("Could not fetch rate from external API");
         }
         return rate;
@@ -43,7 +43,7 @@ public class RateCacheService {
         logger.info("Calling External Frankfurter API getCurrencies() count={}", countCurrencies);
         Map<String, String> currencies = apiClient.getAllCurrenciesAndTheirName();
         if(currencies == null){
-            logger.info("Could not fetch currencies from external API");
+            logger.warn("Could not fetch currencies from external API");
             throw new IllegalStateException("Could not fetch currencies from external API");
         }
         return currencies;

@@ -37,10 +37,10 @@ public class ConversionService {
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
                     baseCurrency,
-                    currencies.get(baseCurrency.toUpperCase()),
+                    currencies.get(baseCurrency),
                     amount,
-                    targetCurrency.toUpperCase(),
-                    currencies.get(targetCurrency.toUpperCase()),
+                    targetCurrency,
+                    currencies.get(targetCurrency),
                     BigDecimal.valueOf(1),
                     amount
             );

@@ -11,6 +11,7 @@ import se.salt.foreignexchangeapi.dto.ApiErrorResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,8 +24,7 @@ public class GlobalExceptionHandler {
                 400,
                 "Invalid request data",
                 ex.getMessage(),
-                request.getRequestURI(),
-                List.of(ex.getMessage())
+                request.getRequestURI()
         );
         return ResponseEntity.badRequest().body(errorResponse);
     }
@@ -39,8 +39,7 @@ public class GlobalExceptionHandler {
                 503,
                 "External API error",
                 ex.getMessage(),
-                request.getRequestURI(),
-                List.of()
+                request.getRequestURI()
         );
 
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
@@ -51,19 +50,14 @@ public class GlobalExceptionHandler {
             MethodArgumentNotValidException ex,
             HttpServletRequest request
     ) {
-        List<String> details = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                .toList();
 
         ApiErrorResponse error = new ApiErrorResponse(
                 LocalDateTime.now(),
                 400,
                 "Validation failed",
-                "Request validation failed",
-                request.getRequestURI(),
-                details
+                Objects.requireNonNull(ex.getBindingResult().getFieldError()).getDefaultMessage(),
+                request.getRequestURI()
+
         );
 
         return ResponseEntity.badRequest().body(error);
