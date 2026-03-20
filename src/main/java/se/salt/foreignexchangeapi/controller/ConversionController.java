@@ -34,9 +34,14 @@ public class ConversionController {
      */
 
     @PostMapping("/conversions")
-    public ResponseEntity<ConversionResponse> convert(@Valid @RequestBody ConversionRequest request){
+    public ResponseEntity<ConversionResponse> convert
+            (@Valid @RequestBody ConversionRequest request,
+            @RequestHeader(value = "User-Agent", required = false)
+            String userAgent){
 
-        return ResponseEntity.ok(conversionService.convert(
+        return ResponseEntity.ok()
+                .header("User-Agent" , userAgent)
+                .body(conversionService.convert(
                 request.from(),
                 request.to(),
                 request.amount())

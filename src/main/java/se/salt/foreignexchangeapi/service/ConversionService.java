@@ -18,32 +18,34 @@ public class ConversionService {
 
     public ConversionResponse convert(String baseCurrency, String targetCurrency, BigDecimal amount){
         Map<String , String > currencies = rateCacheService.getCurrencies();
+        baseCurrency = baseCurrency.toUpperCase();
+        targetCurrency = targetCurrency.toUpperCase();
 
-        if(!currencies.containsKey(baseCurrency.toUpperCase())){
+        if(!currencies.containsKey(baseCurrency)){
             throw new IllegalStateException("Currency not supported or does not exist: " + baseCurrency);
         }
 
-        if(!currencies.containsKey(targetCurrency.toUpperCase())){
+        if(!currencies.containsKey(targetCurrency)){
             throw new IllegalStateException("Currency not supported or does not exist: " + targetCurrency);
         }
 
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
-                    baseCurrency.toUpperCase(),
-                    currencies.get(baseCurrency),
+                    baseCurrency,
+                    currencies.get(baseCurrency.toUpperCase()),
                     amount,
                     targetCurrency.toUpperCase(),
-                    currencies.get(targetCurrency),
+                    currencies.get(targetCurrency.toUpperCase()),
                     BigDecimal.valueOf(1),
                     amount
             );
         }
         double rate = rateCacheService.getRate(baseCurrency, targetCurrency);
         return new ConversionResponse(
-                baseCurrency.toUpperCase(),
+                baseCurrency,
                 currencies.get(baseCurrency),
                 amount,
-                targetCurrency.toUpperCase(),
+                targetCurrency,
                 currencies.get(targetCurrency),
                 BigDecimal.valueOf(rate),
                 amount.multiply(BigDecimal.valueOf(rate)));
