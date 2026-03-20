@@ -1,5 +1,7 @@
 package se.salt.foreignexchangeapi.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import se.salt.foreignexchangeapi.dto.ConversionResponse;
 
@@ -11,6 +13,7 @@ public class ConversionService {
 
 
     private final RateCacheService rateCacheService;
+    private final static Logger logger = LoggerFactory.getLogger(ConversionService.class);
 
     public ConversionService(RateCacheService rateCacheService) {
         this.rateCacheService = rateCacheService;
@@ -22,10 +25,12 @@ public class ConversionService {
         targetCurrency = targetCurrency.toUpperCase();
 
         if(!currencies.containsKey(baseCurrency)){
+            logger.warn("Currency not supported or does not exist={}", baseCurrency);
             throw new IllegalStateException("Currency not supported or does not exist: " + baseCurrency);
         }
 
         if(!currencies.containsKey(targetCurrency)){
+            logger.warn("Currency not supported or does not exist={}", targetCurrency);
             throw new IllegalStateException("Currency not supported or does not exist: " + targetCurrency);
         }
 
