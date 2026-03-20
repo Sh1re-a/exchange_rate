@@ -45,4 +45,29 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiErrorResponse> handleValidationError(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest request
+    ) {
+        List<String> details = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .toList();
+
+        ApiErrorResponse error = new ApiErrorResponse(
+                LocalDateTime.now(),
+                400,
+                "Validation failed",
+                "Request validation failed",
+                request.getRequestURI(),
+                details
+        );
+
+        return ResponseEntity.badRequest().body(error);
+    }
+
+
 }
