@@ -33,7 +33,7 @@ public class RateCacheService {
         Double rate = response.rates().get(wantedCurrency);
         if(rate == null){
             logger.info("Could not fetch rate from External API");
-            throw new IllegalStateException("Could not fetch rate from External API");
+            throw new IllegalStateException("Could not fetch rate from external API");
         }
         return rate;
     }
@@ -41,7 +41,11 @@ public class RateCacheService {
     public Map<String, String> getCurrencies(){
         countCurrencies++;
         logger.info("Calling External Frankfurter API getCurrencies() count={}", countCurrencies);
-        return Optional.ofNullable(apiClient.getAllCurrenciesAndTheirName())
-                .orElseThrow(()  -> new IllegalStateException("Could not fetch currencies from API"));
+        Map<String, String> currencies = apiClient.getAllCurrenciesAndTheirName();
+        if(currencies == null){
+            logger.info("Could not fetch currencies from external API");
+            throw new IllegalStateException("Could not fetch currencies from external API");
+        }
+        return currencies;
     }
 }
