@@ -19,8 +19,6 @@ public class ConversionService {
     public ConversionResponse convert(String baseCurrency, String targetCurrency, BigDecimal amount){
         Map<String , String > currencies = rateCacheService.getCurrencies();
 
-
-
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
                     baseCurrency.toUpperCase(),
