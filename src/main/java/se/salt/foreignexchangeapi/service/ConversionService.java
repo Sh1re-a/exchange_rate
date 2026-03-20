@@ -19,12 +19,14 @@ public class ConversionService {
     public ConversionResponse convert(String baseCurrency, String targetCurrency, BigDecimal amount){
         Map<String , String > currencies = rateCacheService.getCurrencies();
 
+
+
         if(baseCurrency.equals(targetCurrency)){
             return new ConversionResponse(
-                    baseCurrency,
+                    baseCurrency.toUpperCase(),
                     currencies.get(baseCurrency),
                     amount,
-                    targetCurrency,
+                    targetCurrency.toUpperCase(),
                     currencies.get(targetCurrency),
                     BigDecimal.valueOf(1),
                     amount
@@ -32,10 +34,10 @@ public class ConversionService {
         }
         double rate = rateCacheService.getRate(baseCurrency, targetCurrency);
         return new ConversionResponse(
-                baseCurrency,
+                baseCurrency.toUpperCase(),
                 currencies.get(baseCurrency),
                 amount,
-                targetCurrency,
+                targetCurrency.toUpperCase(),
                 currencies.get(targetCurrency),
                 BigDecimal.valueOf(rate),
                 amount.multiply(BigDecimal.valueOf(rate)));
